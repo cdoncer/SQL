@@ -1,3 +1,6 @@
+##This project was written in PostgreSQL v15
+##This project utilized data from the following Netflix dataset
+
 CREATE TABLE netflix_titles_info
     ("show_id" varchar(5), "type" varchar(7), "title" varchar(58), "country" varchar(74), "date_added" timestamp, "release_year" int, "rating" varchar(5), "duration" varchar(9), "listed_in" varchar(74))
 ;
@@ -55,4 +58,37 @@ VALUES
     ('s19', 'Adam Salky', 'Freida Pinto| Logan Marshall-Green| Robert John Burke| Megan Elisabeth Kelly| Sarah Minnich| Hayes Hargrove| Mark Sivertsen| Brandon Fierro| Antonio Valles| Clint Obenchain'),
     ('s20', NULL, 'Blanca SuÃ¡rez| IvÃ¡n Marcos| Ã“scar Casas| AdriÃ¡n Lastra| Francesc Garrido| Stefan Weinert| Julia MÃ¶ller| Alicia Chojnowski')
     ;
-    
+
+##Show the title, director and cast of each show/movie
+SELECT titles.title, people.director, people.cast
+FROM "netflix_titles_info" titles
+JOIN "netflix_people" people
+ON titles.show_id = people.show_id;
+
+##Show the number of titles that fall under the Movie type
+SELECT COUNT(*)
+FROM "netflix_titles_info"
+WHERE type = 'Movie';
+
+##Show the date of the most recent addition to the Netflix library
+SELECT max(date(date_added)) 
+FROM "netflix_titles_info";
+
+##Show a list of all titles from the Netflix table in alphabetical order
+SELECT title
+FROM "netflix_titles_info"
+ORDER BY title asc;
+
+##Show the director for the movie The Starling
+SELECT people.director
+FROM "netflix_people" people
+LEFT JOIN "netflix_titles_info" titles
+ON people.show_id = titles.show_id
+WHERE titles.title = 'The Starling';
+
+##What is the oldest movie that is currently on Netflix according to these tables?
+SELECT title, release_year
+FROM "netflix_titles_info" 
+ORDER BY release_year LIMIT 1;
+
+
