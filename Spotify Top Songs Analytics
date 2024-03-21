@@ -56,3 +56,9 @@ artist_name as Artist,
 track_name as Track
 FROM BIT_DB.Spotifydata
 WHERE popularity >= 90;
+
+##Show the tracks that have an irregular time signature from the table.
+SELECT artist_name as Artist, track_name as Track, time_signature
+FROM BIT_DB.Spotifydata
+GROUP BY Track
+HAVING time_signature < 4
