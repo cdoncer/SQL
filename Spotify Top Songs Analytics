@@ -1,0 +1,58 @@
+# For this project, I downloaded Spotify data from Kaggle.
+# Then I created a table to insert Spotify data into.
+# Finally, I performed analytics on the data using SQL. 
+
+#Creating the table: 
+CREATE TABLE BIT_DB.Spotifydata (
+id integer PRIMARY KEY,
+artist_name varchar NOT NULL,
+track_name varchar NOT NULL,
+track_id varchar NOT NULL,
+popularity integer NOT NULL,
+danceability decimal(4,3) NOT NULL,
+energy decimal(4,3) NOT NULL,
+key integer NOT NULL,
+loudness decimal(5,3) NOT NULL,
+mode integer NOT NULL,
+speechiness decimal(5,4) NOT NULL,
+acousticness decimal(6,5) NOT NULL,
+instrumentalness text NOT NULL,
+liveness decimal(5,4) NOT NULL,
+valence decimal(4,3) NOT NULL,
+tempo decimal(6,3) NOT NULL,
+duration_ms integer NOT NULL,
+time_signature integer NOT NULL 
+)
+
+#Then I inserted the Spotify Data .csv into the table.
+
+#Next, I explored the data using the following SQL. 
+
+##Select the Top 10 Tracks with popularity greater than or equal to 92.
+SELECT artist_name as Artist,
+       track_name as Track
+  FROM BIT_DB.Spotifydata
+ WHERE popularity >= 92
+ ORDER BY duration_ms DESC
+ LIMIT 10;
+ 
+##Show each artist that appears on the table and how many songs they each have on the table.
+SELECT artist_name as Artist, COUNT(*)     
+  FROM BIT_DB.Spotifydata
+ GROUP BY Artist
+ ORDER BY COUNT(*) DESC;
+
+##Show the averages for each of the below categories from the table.
+SELECT AVG(popularity) as Popularity, 
+ROUND(AVG(danceability),2) as Danceability, 
+ROUND(AVG(energy),2) as Energy, 
+ROUND(AVG(speechiness),3) as Speechiness, 
+ROUND(AVG(acousticness),2) as Acousticness
+FROM BIT_DB.Spotifydata;
+
+##Find the Song with the slowest tempo with a popularity greather than or equal to 90
+SELECT MIN(tempo) as Tempo,
+artist_name as Artist,
+track_name as Track
+FROM BIT_DB.Spotifydata
+WHERE popularity >= 90;
