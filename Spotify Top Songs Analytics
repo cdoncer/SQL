@@ -62,3 +62,12 @@ SELECT artist_name as Artist, track_name as Track, time_signature
 FROM BIT_DB.Spotifydata
 GROUP BY Track
 HAVING time_signature < 4
+
+##Select the most popular artists from the data and label them as Top Star
+SELECT artist_name,
+average_popularity,
+'Top Star' as Tag
+FROM average_popularity
+WHERE average_popularity >=90
+GROUP BY artist_name
+ORDER BY average_popularity Desc;
