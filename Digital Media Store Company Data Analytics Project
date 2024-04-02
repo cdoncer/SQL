@@ -57,7 +57,7 @@ FROM
 WHERE 
   Title = 'Sales Support Agent';
 
-##Creata a Table that shows each InvoiceID and the customer and Employee that were attached to each invoice
+##Create a Table that shows each InvoiceID and the customer and Employee that were attached to each invoice
 SELECT 
     i.InvoiceID, 
     c.FirstName AS CustomerFirstName, 
