@@ -2,28 +2,74 @@
 ##It includes information regarding the music sold, employees, customers and invoices. There are 11 separate tables to pull the data from in this database.
 
 ##Show all customers that do not live in the U.S.A
-SELECT firstname, lastname, customerid, country
-FROM chinook.customers
-WHERE Country != 'USA';
+SELECT 
+  firstname, 
+  lastname, 
+  customerid, 
+  country
+FROM 
+  chinook.customers
+WHERE 
+  Country != 'USA';
 
 ##Show all customers that live in Brazil
-SELECT firstname, lastname, customerid, country
-FROM chinook.customers
-WHERE Country = 'Brazil';
+SELECT 
+  firstname, 
+  lastname, 
+  customerid, 
+  country
+FROM 
+  chinook.customers
+WHERE 
+  Country = 'Brazil';
 
-##Shoow all invoices that have a Billing Country of Brazil
-SELECT customers.firstname, customers.lastname, Invoices.InvoiceId, Invoices.InvoiceDate, Invoices.BillingCountry
-FROM chinook.invoices as Invoices
-INNER JOIN chinook.customers as Customers
-ON Invoices.customerid = Customers.CustomerId
-WHERE Invoices.BillingCountry = 'Brazil';
+##Show all invoices that have a Billing Country of Brazil
+SELECT 
+  customers.firstname, 
+  customers.lastname, 
+  Invoices.InvoiceId, 
+  Invoices.InvoiceDate, 
+  Invoices.BillingCountry
+FROM 
+  chinook.invoices as Invoices
+INNER JOIN 
+  chinook.customers as Customers
+ON 
+  Invoices.customerid = Customers.CustomerId
+WHERE 
+  Invoices.BillingCountry = 'Brazil';
 
 ##Create a list of all the Unique countries that are listed on all invoices
-SELECT DISTINCT BillingCountry
-FROM chinook.invoices
-GROUP BY BillingCountry;
+SELECT 
+  DISTINCT BillingCountry
+FROM 
+  chinook.invoices
+GROUP BY 
+  BillingCountry;
 
 ##Create a list of all the Sales Agents from the employees
-SELECT FirstName, LastName, Title
-FROM chinook.employees
-WHERE Title = 'Sales Support Agent';
+SELECT 
+  FirstName, 
+  LastName, 
+  Title
+FROM 
+  chinook.employees
+WHERE 
+  Title = 'Sales Support Agent';
+
+##Creata a Table that shows each InvoiceID and the customer and Employee that were attached to each invoice
+SELECT 
+    i.InvoiceID, 
+    c.FirstName AS CustomerFirstName, 
+    c.LastName AS CustomerLastName, 
+    e.FirstName AS SalesAgentFirstName, 
+    e.LastName AS SalesAgentLastName
+FROM 
+   chinook.invoices AS i
+INNER JOIN 
+    chinook.customers AS c 
+ON i.CustomerId = c.CustomerId
+INNER JOIN 
+    chinook.employees AS e 
+ON c.SupportRepId = e.EmployeeId
+ORDER BY EmployeeID;
