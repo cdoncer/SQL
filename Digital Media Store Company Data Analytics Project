@@ -17,3 +17,13 @@ FROM chinook.invoices as Invoices
 INNER JOIN chinook.customers as Customers
 ON Invoices.customerid = Customers.CustomerId
 WHERE Invoices.BillingCountry = 'Brazil';
+
+##Create a list of all the Unique countries that are listed on all invoices
+SELECT DISTINCT BillingCountry
+FROM chinook.invoices
+GROUP BY BillingCountry;
+
+##Create a list of all the Sales Agents from the employees
+SELECT FirstName, LastName, Title
+FROM chinook.employees
+WHERE Title = 'Sales Support Agent';
