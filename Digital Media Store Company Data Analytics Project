@@ -1,0 +1,19 @@
+##The following project represents date from a SQL database that includes data from a Digital Media Storefront. 
+##It includes information regarding the music sold, employees, customers and invoices. There are 11 separate tables to pull the data from in this database.
+
+##Show all customers that do not live in the U.S.A
+SELECT firstname, lastname, customerid, country
+FROM chinook.customers
+WHERE Country != 'USA';
+
+##Show all customers that live in Brazil
+SELECT firstname, lastname, customerid, country
+FROM chinook.customers
+WHERE Country = 'Brazil';
+
+##Shoow all invoices that have a Billing Country of Brazil
+SELECT customers.firstname, customers.lastname, Invoices.InvoiceId, Invoices.InvoiceDate, Invoices.BillingCountry
+FROM chinook.invoices as Invoices
+INNER JOIN chinook.customers as Customers
+ON Invoices.customerid = Customers.CustomerId
+WHERE Invoices.BillingCountry = 'Brazil';
